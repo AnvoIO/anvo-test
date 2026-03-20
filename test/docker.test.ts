@@ -13,9 +13,9 @@ describe("docker client test", () => {
     await startChainContainer(port);
 
     const containers = getContainers();
-    const qTestContainer = containers.find((c) => c.name === "qtest12345");
+    const qTestContainer = containers.find((c) => c.name === "anvotest12345");
     // @ts-ignore
-    expect(qTestContainer.name).toBe("qtest12345");
+    expect(qTestContainer.name).toBe("anvotest12345");
     expect(await checkContainerHealthStatus(port)).toBe(false);
     await sleep(4000);
     expect(await checkContainerHealthStatus(port)).toBe(true);
@@ -32,7 +32,7 @@ describe("docker client test", () => {
   it("kill chain container", async () => {
     await killExistingChainContainer(port);
     const containers = getContainers();
-    const qTestContainer = containers.find((c) => c.name === "qtest12345");
+    const qTestContainer = containers.find((c) => c.name === "anvotest12345");
     expect(qTestContainer).toBe(undefined);
   });
 });

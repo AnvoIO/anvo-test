@@ -7,28 +7,23 @@ if [ ! -d $DATADIR ]; then
   mkdir -p $DATADIR;
 fi
 
-ARCH=`uname -m`
-
-NODEOS='/usr/local/bin/nodeos'
+ARCH=$(uname -m)
 
 if [ "${ARCH}" = "x86_64" ]; then
    EOSVM=eos-vm-jit
-   if [ "$SYSTEM_TOKEN_SYMBOL" = "WAX" ]; then
-      NODEOS='/usr/local/bin/wax/nodeos'
-   fi
 else
    EOSVM=eos-vm
 fi
 
-$NODEOS \
---signature-provider $EOSIO_PUB_KEY=KEY:$EOSIO_PRV_KEY \
---plugin eosio::net_plugin \
---plugin eosio::net_api_plugin \
---plugin eosio::producer_plugin \
---plugin eosio::producer_api_plugin \
---plugin eosio::chain_plugin \
---plugin eosio::chain_api_plugin \
---plugin eosio::http_plugin \
+core_netd \
+--signature-provider $ANVO_PUB_KEY=KEY:$ANVO_PRV_KEY \
+--plugin core_net::net_plugin \
+--plugin core_net::net_api_plugin \
+--plugin core_net::producer_plugin \
+--plugin core_net::producer_api_plugin \
+--plugin core_net::chain_plugin \
+--plugin core_net::chain_api_plugin \
+--plugin core_net::http_plugin \
 --data-dir $DATADIR"/data" \
 --blocks-dir $DATADIR"/blocks" \
 --config-dir $DATADIR"/config" \
@@ -40,14 +35,15 @@ $NODEOS \
 --http-validate-host=false \
 --verbose-http-errors \
 --enable-stale-production \
+--cpu-effort-percent 100 \
 --trace-history \
 --chain-state-history \
 --max-transaction-time=2000 \
---abi-serializer-max-time-ms=60000 \
---http-max-response-time-ms=8000 \
+--abi-serializer-max-time-ms=100000 \
+--http-max-response-time-ms=500 \
 --chain-state-db-size-mb 8192 \
 --chain-state-db-guard-size-mb 1024 \
 --wasm-runtime=$EOSVM \
 --hard-replay-blockchain \
->> $DATADIR"/nodeos.log" 2>&1 & \
-echo $! > $DATADIR"/eosd.pid"
+>> $DATADIR"/core_netd.log" 2>&1 & \
+echo $! > $DATADIR"/core_netd.pid"

@@ -8,7 +8,7 @@ import { TESTING_PUBLIC_KEY } from "../src/wallet";
 describe("account test", () => {
   let chain: Chain;
   let account: Account;
-  let chainName = process.env.CHAIN_NAME || "WAX";
+  let chainName = process.env.CHAIN_NAME || "ANVO";
 
   beforeAll(async () => {
     chain = await Chain.setupChain(chainName);
