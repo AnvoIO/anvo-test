@@ -1,5 +1,5 @@
 import { execSync } from "child_process";
-const dockerImageName = "ghcr.io/anvo-network/anvo-test:latest";
+const dockerImageName = "ghcr.io/anvoio/anvo-test:latest";
 
 function execute(command, ignoreFail = false) {
   try {

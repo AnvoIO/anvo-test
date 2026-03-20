@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@anvo-network/anvo-test": "^1.0.0",
+    "@anvoio/anvo-test": "^1.0.0",
     "jest": "^28.1.3"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "@anvo-network/anvo-test",
+  "name": "@anvoio/anvo-test",
   "version": "1.0.0",
   "description": "Anvo Network smart contract testing framework",
   "main": "dist/index.js",
@@ -35,17 +35,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Anvo-Network/Qtest.git"
+    "url": "git+https://github.com/AnvoIO/anvo-test.git"
   },
   "keywords": [
     "anvo",
-    "anvo-network",
+    "anvoio",
     "testing",
     "smart-contract"
   ],
   "author": "Anvo Network",
   "bugs": {
-    "url": "https://github.com/Anvo-Network/Qtest/issues"
+    "url": "https://github.com/AnvoIO/anvo-test/issues"
   },
-  "homepage": "https://github.com/Anvo-Network/Qtest#readme"
+  "homepage": "https://github.com/AnvoIO/anvo-test#readme"
 }

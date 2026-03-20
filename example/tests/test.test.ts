@@ -1,5 +1,5 @@
-const { Chain } = require("@anvo-network/anvo-test");
-const { expectAction, expectThrow, expectBalance } = require("@anvo-network/anvo-test");
+const { Chain } = require("@anvoio/anvo-test");
+const { expectAction, expectThrow, expectBalance } = require("@anvoio/anvo-test");
 
 describe('eosio.token test', () => {
   let chain;

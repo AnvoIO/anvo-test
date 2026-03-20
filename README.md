@@ -1,6 +1,6 @@
 # Welcome to anvo-test
 
-anvo-test is an open-source Javascript-based smart-contract testing framework for [Anvo Core](https://github.com/Anvo-Network/core) blockchains.
+anvo-test is an open-source Javascript-based smart-contract testing framework for [Anvo Core](https://github.com/AnvoIO/core) blockchains.
 
 anvo-test gives you the ability to dockerize an Anvo Core node. This allows a developer to host it on any system that supports [Docker](https://docs.docker.com). Using anvo-test, developers can simplify testing of smart contracts and automate things like table seeding, account creation, and other initialisation tasks that are required before running complex test scenarios.
 
@@ -21,7 +21,7 @@ The framework supports multiple chain configurations — ANVO is the first chain
 Refer to [an example project](example)
 
 ```bash
-npm install --save-dev @anvo-network/anvo-test
+npm install --save-dev @anvoio/anvo-test
 ```
 
 #### Jest
@@ -58,8 +58,8 @@ npm run test
 
 ### Usage
 ```
-const { Chain } = require("@anvo-network/anvo-test");
-const { expectAction } = require("@anvo-network/anvo-test");
+const { Chain } = require("@anvoio/anvo-test");
+const { expectAction } = require("@anvoio/anvo-test");
 ```
 **Api** and **JsonRpc** from **eosjs** are available through the **[Chain](docs/api/chain.md)** class
 

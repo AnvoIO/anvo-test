@@ -1,4 +1,4 @@
-IMAGE_NAME=ghcr.io/anvo-network/anvo-test
+IMAGE_NAME=ghcr.io/anvoio/anvo-test
 IMAGE_VERSION=latest
 ARCH=$(shell uname -m)
 

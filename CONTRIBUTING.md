@@ -32,11 +32,11 @@ Guidelines for bug reports:
 
 1. **Use the GitHub issue search** &mdash; check if the issue has already been reported.
 
-1. **Check if the issue has been fixed** &mdash; look for [closed issues in the current milestone](https://github.com/Anvo-Network/Qtest/issues?q=is%3Aissue+is%3Aclosed) or try to reproduce it using the latest `main` branch.
+1. **Check if the issue has been fixed** &mdash; look for [closed issues in the current milestone](https://github.com/AnvoIO/anvo-test/issues?q=is%3Aissue+is%3Aclosed) or try to reproduce it using the latest `main` branch.
 
 A good bug report shouldn't leave others needing to chase you up for more information. Be sure to include the details of your environment and relevant tests that demonstrate the failure.
 
-[Report a bug](https://github.com/Anvo-Network/Qtest/issues/new?title=Bug%3A)
+[Report a bug](https://github.com/AnvoIO/anvo-test/issues/new?title=Bug%3A)
 
 ### Feature Requests
 
@@ -55,14 +55,14 @@ Change requests cover both architectural and functional changes to how anvo-test
 
 ## Working on anvo-test
 
-Code contributions are welcome and encouraged! If you are looking for a good place to start, check out the [good first issue](https://github.com/Anvo-Network/Qtest/labels/good%20first%20issue) label in GitHub issues.
+Code contributions are welcome and encouraged! If you are looking for a good place to start, check out the [good first issue](https://github.com/AnvoIO/anvo-test/labels/good%20first%20issue) label in GitHub issues.
 
 Also, please follow these guidelines when submitting code:
 
 ### Feature Branches
 
-- **[main](https://github.com/Anvo-Network/Qtest/tree/main)** is the development branch. All work on the next release happens here so you should generally branch off `main`. Do **NOT** use this branch for a production site.
-- **[release/x.y](https://github.com/Anvo-Network/Qtest/releases)** will contain the corresponding branch for the given `x.y` release, if any. Do **NOT** use these branches to work on source.
+- **[main](https://github.com/AnvoIO/anvo-test/tree/main)** is the development branch. All work on the next release happens here so you should generally branch off `main`. Do **NOT** use this branch for a production site.
+- **[release/x.y](https://github.com/AnvoIO/anvo-test/releases)** will contain the corresponding branch for the given `x.y` release, if any. Do **NOT** use these branches to work on source.
 
 ### Submitting Pull Requests
 

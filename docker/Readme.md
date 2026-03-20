@@ -34,7 +34,7 @@ CONTAINER ID   IMAGE               COMMAND             CREATED          STATUS  
 ## Start docker
 Note: SYSTEM_TOKEN_SYMBOL can be ANVO (additional chains can be added)
 ```
-docker run --name anvotest --env SYSTEM_TOKEN_SYMBOL="ANVO" -d -p 8888:8888 ghcr.io/anvo-network/anvo-test:latest
+docker run --name anvotest --env SYSTEM_TOKEN_SYMBOL="ANVO" -d -p 8888:8888 ghcr.io/anvoio/anvo-test:latest
 ```
 
 ## Time manipulation:
