@@ -1,0 +1,22 @@
+Anvo Network Smart Contract Testing Framework (anvo-test)
+Copyright 2026 Stratovera LLC
+
+This product is a derivative work based on the Qtest smart contract testing
+framework for Antelope/EOSIO blockchains, described below.
+
+The predecessor work is licensed under the MIT License.
+
+================================================================================
+
+1. GenerEOS/Qtest
+   https://github.com/GenerEOS/Qtest
+   Copyright 2022 generEOS
+   Licensed under the MIT License
+
+   Open-source Javascript-based Antelope smart contract testing framework,
+   created by GenerEOS (https://genereos.io) with funding from the
+   EOS Network Foundation (https://eosnetwork.com). Provided Docker-based
+   Leap node orchestration, snapshot-based chain initialization for EOS,
+   WAX, and TELOS networks, libfaketime-based chain time manipulation,
+   table data seeding via custom WASM actions, and parallel test execution
+   via Jest workers with multi-architecture (ARM/AMD64) support.
