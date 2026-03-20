@@ -5,7 +5,7 @@ import { importKey, signatureProvider, createKey } from "../src/wallet";
 describe("test wallet", () => {
   let chain: Chain;
   let account: Account;
-  let chainName = process.env.CHAIN_NAME || "WAX";
+  let chainName = process.env.CHAIN_NAME || "ANVO";
 
   beforeAll(async () => {
     chain = await Chain.setupChain(chainName);

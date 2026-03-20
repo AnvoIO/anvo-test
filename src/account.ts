@@ -64,7 +64,7 @@ export class Account {
       {
         actions: [
           {
-            account: "eosio",
+            account: this.chain.systemAccount,
             name: "updateauth",
             authorization: [
               {
@@ -108,7 +108,7 @@ export class Account {
    */
   async getBalance(): Promise<Asset> {
     const currencyBalance = await this.chain.rpc.get_currency_balance(
-      "eosio.token",
+      this.chain.systemSubAccount("token"),
       this.name,
       this.chain.coreSymbol.symbol
     );
@@ -132,7 +132,7 @@ export class Account {
       {
         actions: [
           {
-            account: "eosio",
+            account: this.chain.systemAccount,
             name: "updateauth",
             authorization: [
               {
@@ -176,7 +176,7 @@ export class Account {
       {
         actions: [
           {
-            account: "eosio",
+            account: this.chain.systemAccount,
             name: "linkauth",
             authorization: [
               {
@@ -198,9 +198,9 @@ export class Account {
   }
 
   /**
-   * Add `eosio.code` to permission
+   * Add code permission to account
    *
-   * @param {string} permission permission name to add `eosio.code`
+   * @param {string} permission permission name to add code permission
    * @return {Promise<TransactResult>} Transaction
    * @api public
    */
@@ -225,7 +225,7 @@ export class Account {
       accountPermission.push({
         permission: {
           actor: this.name,
-          permission: "eosio.code",
+          permission: this.chain.codePermission,
         },
         weight: updatingPermission.required_auth.threshold,
       });
@@ -233,7 +233,7 @@ export class Account {
       accountPermission.push({
         permission: {
           actor: this.name,
-          permission: "eosio.code",
+          permission: this.chain.codePermission,
         },
         weight: 1,
       });
@@ -242,7 +242,7 @@ export class Account {
       {
         actions: [
           {
-            account: "eosio",
+            account: this.chain.systemAccount,
             name: "updateauth",
             authorization: [
               {
@@ -291,7 +291,7 @@ export class Account {
       {
         actions: [
           {
-            account: "eosio.token",
+            account: this.chain.systemSubAccount("token"),
             name: "transfer",
             authorization: [
               {
@@ -349,7 +349,7 @@ export class Account {
       {
         actions: [
           {
-            account: "eosio",
+            account: this.chain.systemAccount,
             name: "setcode",
             authorization: [
               {
@@ -365,7 +365,7 @@ export class Account {
             },
           },
           {
-            account: "eosio",
+            account: this.chain.systemAccount,
             name: "setabi",
             authorization: [
               {

@@ -43,18 +43,21 @@ export class System {
     supplyAmount = this.chain.coreSymbol.convertAssetString(100),
     bytes: number = 1024 * 1024
   ): Promise<Account> {
+    const sysAccount = this.chain.systemAccount;
+    const tokenAccount = this.chain.systemSubAccount("token");
+
     let createAccountActions = [
       {
-        account: "eosio",
+        account: sysAccount,
         name: "newaccount",
         authorization: [
           {
-            actor: "eosio",
+            actor: sysAccount,
             permission: "active",
           },
         ],
         data: {
-          creator: "eosio",
+          creator: sysAccount,
           name: account,
           owner: {
             threshold: 1,
@@ -86,31 +89,31 @@ export class System {
       // @ts-ignore
       createAccountActions = createAccountActions.concat([
         {
-          account: "eosio",
+          account: sysAccount,
           name: "buyrambytes",
           authorization: [
             {
-              actor: "eosio",
+              actor: sysAccount,
               permission: "active",
             },
           ],
           data: {
-            payer: "eosio",
+            payer: sysAccount,
             receiver: account,
             bytes,
           },
         },
         {
-          account: "eosio",
+          account: sysAccount,
           name: "delegatebw",
           authorization: [
             {
-              actor: "eosio",
+              actor: sysAccount,
               permission: "active",
             },
           ],
           data: {
-            from: "eosio",
+            from: sysAccount,
             receiver: account,
             stake_net_quantity: this.chain.coreSymbol.convertAssetString(10),
             stake_cpu_quantity: this.chain.coreSymbol.convertAssetString(10),
@@ -121,17 +124,17 @@ export class System {
     }
     if (supplyAmount !== this.chain.coreSymbol.convertAssetString(0)) {
       createAccountActions.push({
-        account: "eosio.token",
+        account: tokenAccount,
         name: "transfer",
         authorization: [
           {
-            actor: "eosio",
+            actor: sysAccount,
             permission: "active",
           },
         ],
         data: {
           // @ts-ignore
-          from: "eosio",
+          from: sysAccount,
           to: account,
           quantity: supplyAmount,
           memo: "supply to test account",

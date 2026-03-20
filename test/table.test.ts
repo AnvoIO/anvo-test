@@ -4,7 +4,7 @@ import { expectAction, expectThrow } from "../src/assertion";
 describe("account test", () => {
   let chain: Chain;
   let inittableContract: Contract;
-  let chainName = process.env.CHAIN_NAME || "WAX";
+  let chainName = process.env.CHAIN_NAME || "ANVO";
 
   beforeAll(async () => {
     chain = await Chain.setupChain(chainName);

@@ -130,7 +130,7 @@ export class Table {
       },
       [
         {
-          actor: "eosio",
+          actor: this.account.chain.systemAccount,
           permission: "active",
         },
       ]
@@ -176,7 +176,7 @@ export class Table {
       },
       [
         {
-          actor: "eosio",
+          actor: this.account.chain.systemAccount,
           permission: "active",
         },
       ]
@@ -222,7 +222,7 @@ export class Table {
       },
       [
         {
-          actor: "eosio",
+          actor: this.account.chain.systemAccount,
           permission: "active",
         },
       ]

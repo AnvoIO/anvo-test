@@ -5,7 +5,7 @@ import { blockTimeToMs } from "../src/utils";
 describe("account test", () => {
   let chain: Chain;
   let passingtimeContract;
-  let chainName = process.env.CHAIN_NAME || "WAX";
+  let chainName = process.env.CHAIN_NAME || "ANVO";
   let contractAccount: Account;
 
   beforeAll(async () => {

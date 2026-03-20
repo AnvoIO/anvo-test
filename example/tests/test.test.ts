@@ -1,10 +1,10 @@
-const { Chain } = require("qtest-js");
-const { expectAction, expectThrow, expectBalance } = require("qtest-js");
+const { Chain } = require("@anvo-network/anvo-test");
+const { expectAction, expectThrow, expectBalance } = require("@anvo-network/anvo-test");
 
 describe('eosio.token test', () => {
   let chain;
   let contract;
-  let chainName = process.env.CHAIN_NAME || 'WAX';
+  let chainName = process.env.CHAIN_NAME || 'ANVO';
   let contractAccount, issuer, user1, user2, user3;
 
   beforeAll(async () => {

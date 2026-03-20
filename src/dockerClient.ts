@@ -1,5 +1,5 @@
 import { execSync } from "child_process";
-const dockerImageName = "songmai108/qtest:v4.0.4";
+const dockerImageName = "ghcr.io/anvo-network/anvo-test:latest";
 
 function execute(command, ignoreFail = false) {
   try {
@@ -34,9 +34,9 @@ const pullDockerImage = async () => {
 
 export const startChainContainer = async (
   rpcPort: number = 8880,
-  tokenSymbol = "EOS"
+  tokenSymbol = "ANVO"
 ) => {
-  const name = "qtest" + rpcPort;
+  const name = "anvotest" + rpcPort;
   await pullDockerImage();
   execute(
     `docker run --name ${name} --env SYSTEM_TOKEN_SYMBOL='${tokenSymbol}' -d -p ${rpcPort}:8888 ${dockerImageName}`
@@ -47,7 +47,7 @@ export const manipulateChainTime = async (
   rpcPort: number,
   timeFormat: string
 ) => {
-  const name = "qtest" + rpcPort;
+  const name = "anvotest" + rpcPort;
   execute(
     `docker exec ${name} /app/scripts/manipulate_time.sh "${timeFormat}"`
   );
@@ -69,7 +69,7 @@ export const getContainers = (): { name: string; id: string }[] => {
 export const checkContainerHealthStatus = async (
   rpcPort: number
 ): Promise<boolean> => {
-  const name = "qtest" + rpcPort;
+  const name = "anvotest" + rpcPort;
   const rawResult = execute(
     `docker inspect --format='{{json .State.Health}}' ${name}`
   );
@@ -84,20 +84,22 @@ export const checkContainerHealthStatus = async (
 export const killExistingChainContainer = async (
   rpcPort: number
 ): Promise<void> => {
-  const name = "qtest" + rpcPort;
+  const name = "anvotest" + rpcPort;
   execute(`docker rm -f ${name}`);
 };
 
 export const killAllExistingChainContainer = async (): Promise<void> => {
   const containers = getContainers();
-  const qTestContainer = containers.find((c) => c.name.startsWith("qtest"));
+  const qTestContainer = containers.find((c) =>
+    c.name.startsWith("anvotest")
+  );
   if (qTestContainer) {
     execute(`docker rm -f ${qTestContainer.id}`);
   }
 };
 
 export const getChainIp = async (rpcPort: number): Promise<string> => {
-  const name = "qtest" + rpcPort;
+  const name = "anvotest" + rpcPort;
   return execute(
     `docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' ${name}`
   );

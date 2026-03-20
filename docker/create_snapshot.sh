@@ -2,17 +2,11 @@
 
 cd /app/snapshot-node/ && ./start.sh
 cd /app/
-./scripts/wait-for-nodeos.sh
+./scripts/wait-for-node.sh
 ./scripts/create_wallet.sh
-if [ "$SYSTEM_TOKEN_SYMBOL" = "EOS" ]; then
-  echo "Deploy EOS System Contracts..."
-  ./scripts/deploy_system_contract_eos.sh
-elif [ "$SYSTEM_TOKEN_SYMBOL" = "WAX" ]; then
-  echo "Deploy WAX System Contracts..."
-  ./scripts/deploy_system_contract_wax.sh
-elif [ "$SYSTEM_TOKEN_SYMBOL" = "TLOS" ]; then
-  echo "Deploy TELOS System Contracts..."
-  ./scripts/deploy_system_contract_tlos.sh
+if [ "$SYSTEM_TOKEN_SYMBOL" = "ANVO" ]; then
+  echo "Deploy ANVO System Contracts..."
+  ./scripts/deploy_system_contract_anvo.sh
 else
   echo "No available system contracts for token symbol: " + $SYSTEM_TOKEN_SYMBOL
 fi

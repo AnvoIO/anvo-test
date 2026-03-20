@@ -32,20 +32,24 @@ export class Chain {
   public systemContractEnable: boolean;
   public time: Time;
   public system: System;
+  public systemAccountPrefix: string;
+  public codePermission: string;
 
-  constructor(rpc: JsonRpc, api: Api, port: number, tokenSymbol: string) {
+  constructor(rpc: JsonRpc, api: Api, port: number, chainName: string) {
     this.port = port;
     this.rpc = rpc;
     this.api = api;
-    const tokenDecimal = this.getChainTokenDecimal(tokenSymbol);
-    this.coreSymbol = new TokenSymbol(tokenDecimal, tokenSymbol);
+    const tokenDecimal = this.getChainTokenDecimal(chainName);
+    this.coreSymbol = new TokenSymbol(tokenDecimal, chainName);
+    this.systemAccountPrefix = this.getSystemAccountPrefix(chainName);
+    this.codePermission = this.systemAccountPrefix + ".code";
     this.systemContractEnable = true;
     this.time = new Time(this);
     this.system = new System(this);
   }
 
   static validateChainName(chainName: string): void {
-    const validChainNames = ["WAX", "EOS", "TLOS"];
+    const validChainNames = ["ANVO"];
     if (!validChainNames.includes(chainName)) {
       throw new Error(
         "Chain name is not valid: " +
@@ -57,13 +61,49 @@ export class Chain {
   }
 
   /**
+   * Get the system account prefix for a given chain
+   *
+   * @param {string} chainName chain name
+   * @return {string} system account prefix (e.g., "eosio" or "core")
+   */
+  private getSystemAccountPrefix(chainName: string): string {
+    switch (chainName) {
+      case "ANVO":
+        return "core";
+      default:
+        throw new Error(
+          "can not find system account prefix for chain name " + chainName
+        );
+    }
+  }
+
+  /**
+   * Get the system account name (the root system account)
+   *
+   * @return {string} system account name (e.g., "eosio" or "core")
+   */
+  get systemAccount(): string {
+    return this.systemAccountPrefix;
+  }
+
+  /**
+   * Get a system sub-account name (e.g., "core.token", "core.msig")
+   *
+   * @param {string} suffix the sub-account suffix (e.g., "token", "msig")
+   * @return {string} full system sub-account name
+   */
+  systemSubAccount(suffix: string): string {
+    return this.systemAccountPrefix + "." + suffix;
+  }
+
+  /**
    * Setup new testing chain, setup chain docker instance, initialize api client, create 10 test accounts
    *
-   * @param {string} chainName type of chain, should be one of either WAX, EOS or TLOS
+   * @param {string} chainName type of chain, should be one of the supported chain names (e.g., "ANVO")
    * @return {Promise<Chain>} new instance of Chain
    * @api public
    */
-  static async setupChain(chainName: string) {
+  static async setupChain(chainName: string = "ANVO") {
     Chain.validateChainName(chainName);
     const port = Math.floor(Math.random() * 9900 + 100);
     await startChainContainer(port, chainName);
@@ -266,10 +306,7 @@ export class Chain {
 
   private getChainTokenDecimal(chainName: string): number {
     switch (chainName) {
-      case "WAX":
-        return 8;
-      case "EOS":
-      case "TLOS":
+      case "ANVO":
         return 4;
       default:
         throw new Error(

@@ -6,7 +6,7 @@ import { TESTING_PUBLIC_KEY } from "../src/wallet";
 describe("setup chain  test", () => {
   let chain: Chain;
   let account: Account;
-  let chainName = process.env.CHAIN_NAME || "WAX";
+  let chainName = process.env.CHAIN_NAME || "ANVO";
 
   afterAll(async () => {
     await chain.clear();
