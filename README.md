@@ -111,3 +111,7 @@ To add support for a new chain:
 ## Licence
 
 This code is provided as is, under [MIT Licence](LICENSE).
+
+## Attribution
+
+anvo-test is derived from [Qtest](https://github.com/GenerEOS/Qtest), originally created by [GenerEOS](https://genereos.io) with funding from the [EOS Network Foundation](https://eosnetwork.com/). See [NOTICE](NOTICE) for details.
