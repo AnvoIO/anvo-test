@@ -53,7 +53,7 @@ describe("account test", () => {
       );
       expect(accountInfo.permissions[2].required_auth.keys[0].weight).toBe(1);
       expect(accountInfo.permissions[2].required_auth.keys[1].key).toContain(
-        "8cFt6PzBL79kp9vPwWoX8V6cjwgShbfUsyisiZ1M8QaFg"
+        "8cFt6PzBL79kp9vPwWoX8V6cjwgShbfUsyisiZ1M8QaFj"
       );
       expect(accountInfo.permissions[2].required_auth.keys[1].weight).toBe(1);
       expect(
