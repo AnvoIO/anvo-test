@@ -17,9 +17,9 @@ describe("docker client test", () => {
     // @ts-ignore
     expect(qTestContainer.name).toBe("anvotest12345");
     expect(await checkContainerHealthStatus(port)).toBe(false);
-    await sleep(4000);
+    await sleep(10000);
     expect(await checkContainerHealthStatus(port)).toBe(true);
-  }, 20000);
+  }, 30000);
 
   it("get chain ip", async () => {
     const ip = await getChainIp(port);

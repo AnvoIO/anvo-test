@@ -36,7 +36,6 @@ core_netd \
 --http-validate-host=false \
 --verbose-http-errors \
 --enable-stale-production \
---cpu-effort-percent 100 \
 --trace-history \
 --chain-state-history \
 --max-transaction-time=2000 \

@@ -1,7 +1,9 @@
 node_modules
 yarn-error.log
 logs
+!docker/node/logs/
 dist
 .vscode
 .DS_Store
 docker/packages/*.deb
+_tmp/

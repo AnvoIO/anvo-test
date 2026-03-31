@@ -7,7 +7,7 @@ import { generateKeyPair } from "eosjs/dist/eosjs-key-conversions";
 import { Chain } from "./chain";
 
 export const TESTING_PUBLIC_KEY =
-  "EOS5dUsCQCAyHVjnqr6BFqVEE7w8XksnkRtz22wd9eFrSq4NHoKEH";
+  "PUB_K1_5dUsCQCAyHVjnqr6BFqVEE7w8XksnkRtz22wd9eFrSq4MRQ3id";
 export const TESTING_KEY =
   "5JKxAqBoQuAYSh6YMcjxcougPpt1pi9L4PyJHwEQuZgYYgkWpjS";
 
