@@ -39,7 +39,7 @@ export const startChainContainer = async (
   const name = "anvotest" + rpcPort;
   await pullDockerImage();
   execute(
-    `docker run --name ${name} --env SYSTEM_TOKEN_SYMBOL='${tokenSymbol}' -d -p ${rpcPort}:8888 ${dockerImageName}`
+    `docker run --name ${name} --security-opt seccomp=unconfined --env SYSTEM_TOKEN_SYMBOL='${tokenSymbol}' -d -p ${rpcPort}:8888 ${dockerImageName}`
   );
 };
 
