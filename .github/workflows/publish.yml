@@ -1,0 +1,103 @@
+name: Publish
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+  id-token: write
+
+jobs:
+  publish-npm:
+    name: Publish to npm
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+
+      - name: Use latest npm (>= 11.5.1 required for trusted publishing)
+        run: npm install -g npm@latest
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npx tsc
+
+      - name: Publish to npm with provenance
+        run: npm publish --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  publish-ghcr:
+    name: Publish Docker image to GHCR (${{ matrix.arch }})
+    strategy:
+      matrix:
+        include:
+          - arch: amd64
+            runner: ubuntu-24.04
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download anvo-core package
+        run: |
+          mkdir -p docker/packages
+          wget -q -P docker/packages/ \
+            "https://github.com/AnvoIO/core/releases/download/v0.1.1-alpha/anvo-core_0.1.1-alpha-ubuntu24.04_${{ matrix.arch }}.deb"
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t ghcr.io/anvoio/anvo-test:latest-${{ matrix.arch }} -f docker/Dockerfile docker/
+          docker push ghcr.io/anvoio/anvo-test:latest-${{ matrix.arch }}
+
+  create-manifest:
+    name: Create multi-arch manifest
+    needs: publish-ghcr
+    runs-on: ubuntu-24.04
+    permissions:
+      packages: write
+    steps:
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create and push manifest
+        run: |
+          docker manifest create ghcr.io/anvoio/anvo-test:latest \
+            ghcr.io/anvoio/anvo-test:latest-amd64 \
+            ghcr.io/anvoio/anvo-test:latest-arm64
+          docker manifest push ghcr.io/anvoio/anvo-test:latest
+
+          # Also tag with version from the release
+          if [ "${{ github.event_name }}" = "release" ]; then
+            VERSION="${{ github.event.release.tag_name }}"
+            docker manifest create ghcr.io/anvoio/anvo-test:${VERSION} \
+              ghcr.io/anvoio/anvo-test:latest-amd64 \
+              ghcr.io/anvoio/anvo-test:latest-arm64
+            docker manifest push ghcr.io/anvoio/anvo-test:${VERSION}
+          fi
