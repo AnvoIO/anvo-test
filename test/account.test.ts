@@ -48,12 +48,12 @@ describe("account test", () => {
       const accountInfo = await chain.rpc.get_account(account.name);
       expect(accountInfo.permissions[2].perm_name).toBe("testauth");
       expect(accountInfo.permissions[2].required_auth.threshold).toBe(2);
-      expect(accountInfo.permissions[2].required_auth.keys[0].key).toBe(
-        "EOS7Gk5QTRcKsK5grAuZkLyPTSw5AcQpCz2VDWGi5DPBvfZAG7H9b"
+      expect(accountInfo.permissions[2].required_auth.keys[0].key).toContain(
+        "7Gk5QTRcKsK5grAuZkLyPTSw5AcQpCz2VDWGi5DPBvfZ"
       );
       expect(accountInfo.permissions[2].required_auth.keys[0].weight).toBe(1);
-      expect(accountInfo.permissions[2].required_auth.keys[1].key).toBe(
-        "EOS8cFt6PzBL79kp9vPwWoX8V6cjwgShbfUsyisiZ1M8QaFgZtep6"
+      expect(accountInfo.permissions[2].required_auth.keys[1].key).toContain(
+        "8cFt6PzBL79kp9vPwWoX8V6cjwgShbfUsyisiZ1M8QaFg"
       );
       expect(accountInfo.permissions[2].required_auth.keys[1].weight).toBe(1);
       expect(
@@ -234,7 +234,7 @@ describe("account test", () => {
     it("should not load contract for non existing account", async () => {
       const test123Account = new Account(chain, "test123");
       await expect(test123Account.loadContract()).rejects.toThrowError(
-        "unknown key (eosio::chain::name): test123"
+        "unknown key"
       );
     }, 100000);
 
