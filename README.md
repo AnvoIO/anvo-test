@@ -1,5 +1,8 @@
 # Welcome to anvo-test
 
+[![npm](https://img.shields.io/npm/v/@anvoio/anvo-test)](https://www.npmjs.com/package/@anvoio/anvo-test)
+[![CI](https://github.com/AnvoIO/anvo-test/actions/workflows/ci.yml/badge.svg)](https://github.com/AnvoIO/anvo-test/actions/workflows/ci.yml)
+
 anvo-test is an open-source Javascript-based smart-contract testing framework for [Anvo Core](https://github.com/AnvoIO/core) blockchains.
 
 anvo-test gives you the ability to dockerize an Anvo Core node. This allows a developer to host it on any system that supports [Docker](https://docs.docker.com). Using anvo-test, developers can simplify testing of smart contracts and automate things like table seeding, account creation, and other initialisation tasks that are required before running complex test scenarios.
@@ -13,6 +16,7 @@ The framework supports multiple chain configurations — ANVO is the first chain
 - Ability to insert/modify/erase data for each table
 - Update the chain time to fast-forward the chain and allow testing future states
 - Multi-chain extensible architecture
+- Published to [npm](https://www.npmjs.com/package/@anvoio/anvo-test) and [GHCR](https://github.com/AnvoIO/anvo-test/pkgs/container/anvo-test)
 
 ## Quick start
 
