@@ -2,7 +2,8 @@
 
 cd /app/
 
-systemAccounts=("core.token" "core.bpay" "core.msig" "core.names" "core.ram" "core.ramfee" "core.saving" "core.stake" "core.vpay" "core.rex")
+# Using eosio namespace for backwards compatibility with Libre system contracts
+systemAccounts=("eosio.token" "eosio.bpay" "eosio.msig" "eosio.names" "eosio.ram" "eosio.ramfee" "eosio.saving" "eosio.stake" "eosio.vpay" "eosio.rex")
 # Create system accounts
 for account in ${systemAccounts[@]} ; do
   echo $account
@@ -10,12 +11,12 @@ for account in ${systemAccounts[@]} ; do
 done
 
 # Deploy token contract
-core-cli set contract core.token contracts/anvo core.token.wasm core.token.abi
-core-cli push action core.token create '["eosio", "10000000000.0000 ANVO"]' -p core.token@active
-core-cli push action core.token issue '[ "eosio", "10000000000.0000 ANVO", "initial supply" ]' -p eosio@active
+core-cli set contract eosio.token contracts/anvo core.token.wasm core.token.abi
+core-cli push action eosio.token create '["eosio", "10000000000.0000 ANVO"]' -p eosio.token@active
+core-cli push action eosio.token issue '[ "eosio", "10000000000.0000 ANVO", "initial supply" ]' -p eosio@active
 
 # Deploy msig contract
-core-cli set contract core.msig contracts/anvo core.msig.wasm core.msig.abi
+core-cli set contract eosio.msig contracts/anvo core.msig.wasm core.msig.abi
 
 # Activate PREACTIVATE_FEATURE
 curl -X POST http://127.0.0.1:8888/v1/producer/schedule_protocol_feature_activations -d '{"protocol_features_to_activate": ["0ec7e080177b2c02b278d5088611686b49d739925a92d9bfcacd7fc6b74053bd"]}'
@@ -59,8 +60,8 @@ do
   sleep 0.5s
 done
 
-# Designate core.msig as privileged account
-core-cli push action eosio setpriv '["core.msig", 1]' -p eosio@active
+# Designate eosio.msig as privileged account
+core-cli push action eosio setpriv '["eosio.msig", 1]' -p eosio@active
 
 # Init system contract
 core-cli push action eosio init '[0, "4,ANVO"]' -p eosio@active

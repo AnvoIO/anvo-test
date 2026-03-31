@@ -69,7 +69,7 @@ export class Chain {
   private getSystemAccountPrefix(chainName: string): string {
     switch (chainName) {
       case "ANVO":
-        return "core";
+        return "eosio";
       default:
         throw new Error(
           "can not find system account prefix for chain name " + chainName
