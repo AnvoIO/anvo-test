@@ -1,0 +1,87 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  test-x86:
+    name: Tests (x86_64)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Compile TypeScript
+        run: npx tsc
+
+      - name: Download anvo-core packages
+        run: |
+          mkdir -p docker/packages
+          wget -q -P docker/packages/ \
+            "https://github.com/AnvoIO/core/releases/download/v0.1.1-alpha/anvo-core_0.1.1-alpha-ubuntu24.04_amd64.deb"
+
+      - name: Build Docker image
+        run: docker build -t ghcr.io/anvoio/anvo-test:latest -f docker/Dockerfile docker/
+
+      - name: Run tests
+        run: npx jest --verbose --runInBand
+
+  test-arm64:
+    name: Tests (ARM64)
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Compile TypeScript
+        run: npx tsc
+
+      - name: Download anvo-core packages
+        run: |
+          mkdir -p docker/packages
+          wget -q -P docker/packages/ \
+            "https://github.com/AnvoIO/core/releases/download/v0.1.1-alpha/anvo-core_0.1.1-alpha-ubuntu24.04_arm64.deb"
+
+      - name: Build Docker image
+        run: docker build -t ghcr.io/anvoio/anvo-test:latest -f docker/Dockerfile docker/
+
+      - name: Run tests
+        run: npx jest --verbose --runInBand
+
+  all-passing:
+    name: All Tests Passed
+    needs: [test-x86, test-arm64]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Gate
+        if: needs.test-x86.result != 'success' || needs.test-arm64.result != 'success'
+        run: exit 1
